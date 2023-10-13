@@ -1,0 +1,4 @@
+/my_env
+/.vscode
+db.sqlite3
+/__pycache__
