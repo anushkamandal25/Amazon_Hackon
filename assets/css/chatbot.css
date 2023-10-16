@@ -7,6 +7,7 @@
   font-family: "Poppins", sans-serif;
 }
 .amazon_img img{
+    position: fixed;
     width: 100px; /* Set the width to 200 pixels */
         height: auto; /* Let the height adjust proportionally */
         
@@ -46,10 +47,33 @@ body.show-chatbot .chatbot-toggler span:first-child  {
 body.show-chatbot .chatbot-toggler span:last-child {
   opacity: 1;
 }
+.user-info{
+  display: flex; /* Use flexbox to align items horizontally */
+  align-items: center; 
+    right: 50px;
+    top: 20px;
+    position: fixed;
+    color: #fff;
+    
+}
+
+.user-info p {
+  margin-right: 10px; /* Add some spacing between text and image */
+}
+.user-info img{
+  
+  width: 60px; /* Set the width to 200 pixels */
+  height: auto; /* Let the height adjust proportionally */
+        
+  
+   
+}
+
+
 .chatbot {
   position: fixed;
   right: 35px;
-  top: 40px;
+  top: 100px;
   bottom: 90px;
   width: 1000px;
   background: rgb(90, 86, 86);
@@ -74,7 +98,7 @@ body.show-chatbot .chatbot {
   position: relative;
   text-align: center;
   color: rgb(183, 172, 172);
-  background: rgb(90, 86, 86);
+  background: rgb(90, 86, 86)
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 .chatbot header span {
@@ -94,7 +118,7 @@ header h2 {
   padding: 10px 20px 100px;
   
 }
-.xyz{
+.chatspace{
     overflow-y: auto;
 }
 .chatbot .chatbox::-webkit-scrollbar {
