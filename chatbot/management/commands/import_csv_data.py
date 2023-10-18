@@ -11,13 +11,13 @@ current_directory = os.path.dirname(os.path.abspath(__file__))
 
 # Append the parent directory (the location of your app) to the Python path
 parent_directory = os.path.dirname(current_directory)
-app_directory = os.path.join(parent_directory, 'core')
-csv_file_paths= os.path.join(current_directory, '../../../dataset/sampledata.csv')
+app_directory = os.path.join(parent_directory, 'chatbot')
+csv_file_paths= os.path.join(current_directory, '../../../dataset/amazon.csv')
 if app_directory not in sys.path:
     sys.path.append(app_directory)
 
 # Now, you can import your models
-from core.models import Product  # Replace 'YourModel' with the actual model name
+from chatbot.models import Product  # Replace 'YourModel' with the actual model name
 
 
 class Command(BaseCommand):
@@ -30,9 +30,15 @@ class Command(BaseCommand):
         # Iterate through the CSV data and create database records
         for _, row in data.iterrows():
             product = Product(
-                name=row['name'],
-                price=row['price'],
-                rating=row['rating']
+                product_id = row['product_id'],
+                name=row['product_name'],
+                category = row['category'],
+                price=row['actual_price'],
+                rating=row['rating'],
+                description = row['about_product'],
+                rating_count = row['rating_count'],
+                image_link = row['img_link'],
+                product_link = row['product_link']
                 # Add other fields as needed
             )
             product.save()

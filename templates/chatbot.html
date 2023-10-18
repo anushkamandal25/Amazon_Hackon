@@ -13,18 +13,23 @@
     <script src="{% static 'js/chatbot.js' %}" defer></script>
   </head>
   <body>
-    <div class="amazon_img"><img src="{% static 'images/amazon-logo-transparent.png' %}" alt=""></div>
+    
+    <div class="amazon_img"> <img src="{% static 'images\amazon-black-icon-16.png' %}"></div>
+    <div class="user-info">
+        <p>Hi! John Doe </p>
+        <img src="{% static 'images\user_icon.png'%}">
+    </div>
     <button class="chatbot-toggler">
       <span class="material-symbols-rounded">mode_comment</span>
       <span class="material-symbols-outlined">close</span>
     </button>
     <div class="chatbot">
-      <div class= "xyz"><header>
+      <div class= "chatspace"><header>
         <h2>Amazon AI Assistant</h2>
         <span class="close-btn material-symbols-outlined">close</span>
       </header>
       <ul class="chatbox">
-        
+      
         <li class="chat incoming">
           <span class="material-symbols-outlined">smart_toy</span>
           <p>Hi! How can I help you?</p>
