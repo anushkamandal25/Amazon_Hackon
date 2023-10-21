@@ -121,3 +121,14 @@ button{
 .register-link p a:hover{
     text-decoration: underline;
 }
+
+.alert-success {
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* CSS for warning messages */
+.alert-warning {
+    background-color: #FF9800;
+    color: white;
+}
