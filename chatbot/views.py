@@ -22,7 +22,7 @@ def loginPage(request):
         if user is not None:
             login(request,user)
             messages.success(request, "Successfully Logged In")
-            return redirect('home')
+            return redirect('chat')
         else:
             messages.warning(request, "Incorrect Username or Password")
             return render(request, 'login.html')
@@ -46,14 +46,5 @@ def registerPage(request):
     context = {'form':form}
     return render(request, 'register.html', context)
 
-def loginPage(request):
-    if request.method == 'POST':
-        username=request.POST["username"]
-        password=request.POST["password"]
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request,user)
-            return redirect('home')
-        else:
-            return HttpResponse("Login Failed")
-    return render(request, 'login.html')
+def chat(request):
+    return render(request, 'chatbot.html')
