@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
+from django.http import HttpResponse
 from .forms import *
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required,user_passes_test
@@ -44,3 +45,15 @@ def registerPage(request):
         form = UserCreationForm()
     context = {'form':form}
     return render(request, 'register.html', context)
+
+def loginPage(request):
+    if request.method == 'POST':
+        username=request.POST["username"]
+        password=request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request,user)
+            return redirect('home')
+        else:
+            return HttpResponse("Login Failed")
+    return render(request, 'login.html')
