@@ -39,24 +39,82 @@ const createChatLi = (message, className) => {
     }).finally(() => chatbox.scrollTo(0, chatbox.scrollHeight));
 }*/
 
+// const handleChat = () => {
+//     userMessage = chatInput.value.trim(); // Get user entered message and remove extra whitespace
+//     if(!userMessage) return;
+//     // Clear the input textarea and set its height to default
+//     chatInput.value = "";
+//     chatInput.style.height = `${inputInitHeight}px`;
+//     // Append the user's message to the chatbox
+//     chatbox.appendChild(createChatLi(userMessage, "outgoing"));
+//     chatbox.scrollTo(0, chatbox.scrollHeight);
+    
+//     setTimeout(() => {
+//         // Display "Thinking..." message while waiting for the response
+//         const incomingChatLi = createChatLi("Thinking...", "incoming");
+//         chatbox.appendChild(incomingChatLi);
+//         chatbox.scrollTo(0, chatbox.scrollHeight);
+//         generateResponse(incomingChatLi);
+//     }, 600);
+// }
+
+
+// chatbot.js
+
 const handleChat = () => {
-    userMessage = chatInput.value.trim(); // Get user entered message and remove extra whitespace
-    if(!userMessage) return;
-    // Clear the input textarea and set its height to default
+    userMessage = chatInput.value.trim();
+    
+    if (!userMessage) return;
+
     chatInput.value = "";
     chatInput.style.height = `${inputInitHeight}px`;
+    
     // Append the user's message to the chatbox
     chatbox.appendChild(createChatLi(userMessage, "outgoing"));
     chatbox.scrollTo(0, chatbox.scrollHeight);
-    
-    setTimeout(() => {
-        // Display "Thinking..." message while waiting for the response
-        const incomingChatLi = createChatLi("Thinking...", "incoming");
-        chatbox.appendChild(incomingChatLi);
+
+    // Display "Thinking..." message while waiting for the response
+    const incomingChatLi = createChatLi("Thinking...", "incoming");
+    chatbox.appendChild(incomingChatLi);
+    chatbox.scrollTo(0, chatbox.scrollHeight);
+
+    // Send user message to the server for product recommendations
+    fetch('/recommendation/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrf_token, // Add the CSRF token
+        },
+        body: JSON.stringify({ user_message: userMessage }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        const recommendedProducts = data.recommended_products;
+
+        if (recommendedProducts.length > 0) {
+            incomingChatLi.querySelector("p").textContent = "Here are some recommended products:";
+            recommendedProducts.forEach((product) => {
+                const productLink = document.createElement('a');
+                productLink.href = product.product_link;
+                productLink.textContent = product.name;
+                productLink.target = '_blank';
+
+                incomingChatLi.querySelector("p").appendChild(productLink);
+            });
+        } else {
+            incomingChatLi.querySelector("p").textContent = "No matching products found.";
+        }
+
         chatbox.scrollTo(0, chatbox.scrollHeight);
-        generateResponse(incomingChatLi);
-    }, 600);
+    })
+    .catch(() => {
+        incomingChatLi.classList.add("error");
+        incomingChatLi.querySelector("p").textContent = "Oops! Something went wrong. Please try again.";
+    });
 }
+
+
+
 chatInput.addEventListener("input", () => {
     // Adjust the height of the input textarea based on its content
     chatInput.style.height = `${inputInitHeight}px`;
