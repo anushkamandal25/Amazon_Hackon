@@ -241,3 +241,16 @@ header h2 {
     display: block;
   }
 }
+
+.navbar-logo{
+ padding-left: 20px;
+}
+
+.logout{
+  padding: 10px;
+}
+
+.main-body{
+  background-color: #000000;
+
+}
