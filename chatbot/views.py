@@ -48,3 +48,6 @@ def registerPage(request):
 
 def chat(request):
     return render(request, 'chatbot.html')
+
+def profile(request):
+    return render(request, 'profile.html')
