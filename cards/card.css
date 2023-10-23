@@ -1,0 +1,40 @@
+.card .img-fit{
+    aspect-ratio: 16/9;
+    object-fit:cover;
+}
+
+@media(max-width: 767.98px){
+    .card .img-fit{
+        aspect-ratio:1.45/1;
+    }
+}
+
+/* card.css */
+.cards {
+    max-width: 200px; /* Set the maximum width to your desired card width */
+    /* card.css */
+    border: 1px solid #ccc; /* Set the border properties as desired */
+    padding: 15px; /* Optional: Add padding to create space between the content and the border */
+    height: 100%;
+}
+
+.card-body{
+    
+    height: 100%
+   
+}
+
+.card-text{
+    flex-grow: 1;
+    font-size: 14px;
+}
+
+.cards img {
+    max-width: 100%; /* Ensure the image inside the card fits within the card's width */
+}
+
+.card-title {
+    font-size: 18px; /* Customize the title font size */
+}
+
+
