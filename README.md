@@ -75,7 +75,7 @@ To set up this project on your local machine, follow these steps:
    python manage.py import_csv_data
 
    python manage.py runserver   
-
+```
 
 ## Social consequences
 
