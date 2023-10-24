@@ -24,7 +24,7 @@ This project aims to create a futuristic shopping experience on Amazon using gen
 
 - #### Real-time Image Recognition ####
 
-- #### Recommendations Based on User Behavior ####
+- #### Recommendations Based on User Behaviour ####
 
 - #### User Feedback Integration ####
 
