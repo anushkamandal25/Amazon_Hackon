@@ -48,7 +48,7 @@ This project aims to create a futuristic shopping experience on Amazon using gen
 
 To set up this project on your local machine, follow these steps:
 
-1. Clone the repository from GitHub:
+
 
    ```bash
    git clone https://github.com/anushkamandal25/Amazon_Hackon.git
