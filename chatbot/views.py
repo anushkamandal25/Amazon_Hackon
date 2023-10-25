@@ -82,17 +82,3 @@ def profile(request):
 #         }
 
 #         return JsonResponse(response_data)
-
-def purchase_product(request, product_id):
-    product = Product.objects.get(product_id=product_id)
-
-    if request.method == 'POST':
-        # Create a new Purchase object and associate it with the user and product
-        Purchase.objects.create(user=request.user, product=product)
-
-        return redirect('order_success')  # Redirect to an order success page
-
-    context = {
-        'product': product,
-    }
-    return render(request, 'buy_product.html', context)

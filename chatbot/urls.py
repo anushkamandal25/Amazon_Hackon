@@ -11,6 +11,4 @@ urlpatterns = [
     path('chat/', views.chat, name="chat"),
     path('profile/', views.profile, name='profile'),
     path('logout', views.logoutPage, name="logout"),
-    # path('recommendation/', views.product_recommendation_view, name='product_recommendation'),
-    path('purchase/<product_id>/', purchase_product, name='purchase_product'),
-]
+    # path('recommendation/', views.product_recommendation_view, name='product_recommendation'),]
