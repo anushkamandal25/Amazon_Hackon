@@ -328,7 +328,7 @@
   function displayMessage(sender, content, messageType) {
   if (Array.isArray(content)) {
     // If content is an array of objects, create a card for each object
-    console.log(content)
+    
     content.forEach((item) => {
       const messageItem = document.createElement('li');
       messageItem.classList.add('message', messageType);
@@ -358,14 +358,10 @@
     messageItem.innerHTML = `
     <span class="material-symbols-outlined bot-icon">person</span>
         <div class="message-text">
-            <div class="message-sender">
-                <b>${sender}</b>
-            </div>
             <div class="message-content">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">${content.title}</h5> <!-- Modify as per your object structure -->
-                        <p class="card-text">${content.description}</p> <!-- Modify as per your object structure -->
+                        <p class="card-text">${content}</p> <!-- Modify as per your object structure -->
                         <!-- Add more properties from the object as needed -->
                     </div>
                 </div>
