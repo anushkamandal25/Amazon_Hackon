@@ -53,7 +53,7 @@ def chat(request):
         user_message = request.POST.get('user_message')
 
         if user_message:
-            recommended_products = recommend_products(user_message)
+            recommended_products = recommend_products(user_message, None, None)
         else:
             recommended_products = []
 
