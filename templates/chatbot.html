@@ -242,6 +242,30 @@
   </form>
 </div>
 
+<!-- Modal for Buy Now form -->
+<div class="modal" id="buyNowModal">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">{{ product.name }}</h5>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <form method="post" action="{% url 'purchase_product' product.product_id %}">
+              {% csrf_token %}
+              <div class="modal-body">
+                  <img src="{{ product.image_link }}" alt="{{ product.name }}" style="max-width: 200px">
+                  <p>Price: ${{ product.price }}</p>
+                  <p>Rating: {{ product.rating }}</p>
+                  <a href="{{ product.product_link }}" target="_blank" rel="noopener noreferrer">Learn More</a>
+              </div>
+              <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary">Buy Now</button>
+              </div>
+          </form>
+      </div>
+    </div>
+  </div>
+
 <!-- <script>
     const messagesList = document.querySelector('.messages-list');
   const messageForm = document.querySelector('.message-form');
@@ -294,6 +318,12 @@
 </script> -->
 
 <script>
+
+// JavaScript to open the Buy Now modal
+document.getElementById('buyNowButton').addEventListener('click', function () {
+  $('#buyNowModal').modal('show');
+});
+
   const messagesList = document.querySelector('.messages-list');
   const messageForm = document.querySelector('.message-form');
   const messageInput = document.querySelector('.message-input');
@@ -375,7 +405,7 @@
               <p class="card-text">Price: ${item.price}</p>
               <p class="card-text">Rating: ${item.rating}</p>
               <a href="${item.product_link}" class="btn btn-primary">Learn More</a>
-              <button class="btn btn-success buy-now-button" data-product-name="${item.name}" data-product-link="${item.product_link}">Buy Now</button>
+              <button id="buyNowButton" class="btn btn-success buy-now-button" data-product-name="${item.name}" data-product-link="${item.product_link}">Buy Now</button>
             </div>
           </div>
         </div>`;
@@ -408,6 +438,8 @@
     messagesList.appendChild(messageItem);
   }
 }
+
+
 
 </script>
 
