@@ -48,12 +48,13 @@ def registerPage(request):
     context = {'form':form}
     return render(request, 'register.html', context)
 
+
 def chat(request):
     if request.method == 'POST':
         user_message = request.POST.get('user_message')
 
         if user_message:
-            recommended_products = recommend_products(user_message)
+            recommended_products = recommend_products(user_message,None,None)
         else:
             recommended_products = []
 
@@ -63,6 +64,8 @@ def chat(request):
 
         return JsonResponse(response_data)
     return render(request, 'chatbot.html')
+
+
 
 def profile(request):
     return render(request, 'profile.html')
