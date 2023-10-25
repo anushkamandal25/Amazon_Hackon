@@ -190,12 +190,12 @@
       <div class="navbar-right">
           {% if user.is_authenticated %}
                   <span class="username">Hello, {{ user.username }}</span>
-                  <img class="user-logo" src="{% static 'images/user_icon.png' %}" alt="Profile Image"  style="width: 80px;
-                  height: 46px;">
+                  <img class="user-logo" src="{% static 'images/user_icon.png' %}" alt="Profile Image"  style="width: 40px;
+                  height: 30px;">
                   
               
               
-              <a class="login logout" href="{% url 'logout' %}"><button type="button" class="btn btn-light">Logout</button>
+              <a class="login logout" href="{% url 'logout' %}"><button type="button" class="btn btn-primary">Logout</button>
                 </a>
               {% comment %} <a href="{% url 'cart' %}">Cart</a> {% endcomment %}
           {% else %}
@@ -221,7 +221,6 @@
 
             <!-- Sent Message -->
         <li class="message sent user-msg">
-          <!-- Your sent message content here -->
         </li>
 
       </ul>
@@ -367,16 +366,17 @@
       // Iterate through the top 3 products and create a card for each
     content.slice(0, 3).forEach((item) => {
       messageItem.innerHTML += `
-        <div class="col col-lg-4 col-md-6">
+        <div class="col col-lg-4 col-md-6 item-cont">
           <div class="card">
+            <div class="item-box">
             <img src="${item.image_link}" class="card-img-top" alt="Product Image">
             <div class="card-body">
-              <h5 class="card-title">${item.name}</h5>
+              <h6 class="card-title">${item.name}</h6>
               <p class="card-text">Price: ${item.price}</p>
               <p class="card-text">Rating: ${item.rating}</p>
-              <a href="${item.product_link}" class="btn btn-primary">Learn More</a>
-              <button class="btn btn-success buy-now-button" data-product-name="${item.name}" data-product-link="${item.product_link}">Buy Now</button>
+              <a href="${item.product_link}" class="btn btn-primary" target="_blank">Learn More</a>              
             </div>
+          <div>
           </div>
         </div>`;
     });
@@ -396,13 +396,12 @@
     messageItem.innerHTML = `
     <span class="material-symbols-outlined bot-icon">person</span>
         <div class="message-text">
-            <div class="message-content">
-                <div class="card">
-                    <div class="card-body">
-                        <p class="card-text">${content}</p> <!-- Modify as per your object structure -->
+            <div class="message-content-reciever">
+                
+                        <p>${content}</p> <!-- Modify as per your object structure -->
                         <!-- Add more properties from the object as needed -->
-                    </div>
-                </div>
+                    
+                
             </div>
         </div>`;
     messagesList.appendChild(messageItem);

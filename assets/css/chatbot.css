@@ -262,3 +262,29 @@ body.show-chatbot .chatbot {
 .bot-msg{
   display: flex;
 }
+
+.message-content-reciever{
+  text-align: left;
+}
+
+.message-content{
+  font-size: 15px;
+}
+
+.navbar-right span{
+  font-size: 17px;
+  margin: 0;
+}
+
+.item-box{
+  display: flex;
+  flex-direction: row;
+}
+.item-box img{
+  width: 200px;
+  height: 200px;
+}
+.item-cont{
+  width: 100% !important;
+}
+
