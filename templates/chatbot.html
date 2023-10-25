@@ -116,15 +116,27 @@
     }
 
     .sent {
+      {% comment %} background-color: #dcf8c6;
+      align-self: flex-end;
+      width: 50%; {% endcomment %}
       background-color: #dcf8c6;
       align-self: flex-end;
-      width: 50%;
+      max-width: 70%; /* Adjust the maximum width for sent messages */
+      margin-left: auto; /* Push the sent message to the right side */
     }
 
     .received {
+      {% comment %} background-color: #f1f0f0;
+      align-self: flex-start;
+      width: 100%; {% endcomment %}
+      display: inline-block; /* Display as inline block to take only necessary width */
+      margin: 10px; /* Add some margin for separation */
       background-color: #f1f0f0;
       align-self: flex-start;
-      width: 50%;
+      max-width: 50%;
+      margin-right: auto; /* Push the received message to the left side */
+      
+
     }
 
     .message-form {
@@ -152,6 +164,13 @@
       display: flex;
       flex-direction: column;
     }
+
+    .username{
+      color: #fff;
+      font-size: 20px;
+      margin-right: 10px;
+    }
+
   </style>
 {% endblock %}
 
@@ -170,9 +189,10 @@
       </div>
       <div class="navbar-right">
           {% if user.is_authenticated %}
-              
+                  <span class="username">Hello, {{ user.username }}</span>
                   <img class="user-logo" src="{% static 'images/user_icon.png' %}" alt="Profile Image"  style="width: 80px;
                   height: 46px;">
+                  
               
               
               <a class="login logout" href="{% url 'logout' %}"><button type="button" class="btn btn-light">Logout</button>
@@ -198,6 +218,12 @@
             </div>
           </div>
         </li>
+
+            <!-- Sent Message -->
+        <li class="message sent user-msg">
+          <!-- Your sent message content here -->
+        </li>
+
       </ul>
       
     </div>
@@ -215,6 +241,30 @@
     </div>
   </form>
 </div>
+
+<!-- Modal for Buy Now form -->
+<div class="modal" id="buyNowModal">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">{{ product.name }}</h5>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          <form method="post" action="{% url 'purchase_product' product.product_id %}">
+              {% csrf_token %}
+              <div class="modal-body">
+                  <img src="{{ product.image_link }}" alt="{{ product.name }}" style="max-width: 200px">
+                  <p>Price: ${{ product.price }}</p>
+                  <p>Rating: {{ product.rating }}</p>
+                  <a href="{{ product.product_link }}" target="_blank" rel="noopener noreferrer">Learn More</a>
+              </div>
+              <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary">Buy Now</button>
+              </div>
+          </form>
+      </div>
+    </div>
+  </div>
 
 <!-- <script>
     const messagesList = document.querySelector('.messages-list');
@@ -268,6 +318,12 @@
 </script> -->
 
 <script>
+
+// JavaScript to open the Buy Now modal
+document.getElementById('buyNowButton').addEventListener('click', function () {
+  $('#buyNowModal').modal('show');
+});
+
   const messagesList = document.querySelector('.messages-list');
   const messageForm = document.querySelector('.message-form');
   const messageInput = document.querySelector('.message-input');
@@ -328,29 +384,41 @@
   function displayMessage(sender, content, messageType) {
   if (Array.isArray(content)) {
     // If content is an array of objects, create a card for each object
-    
-    content.forEach((item) => {
-      const messageItem = document.createElement('li');
-      messageItem.classList.add('message', messageType);
-      messageItem.innerHTML = `
-      <span class="material-symbols-outlined bot-icon">smart_toy</span>
-          <div class="message-text">
-            
-              <div class="message-content">
-                  <div class="card">
-                      <div class="card-body">
-                          <h5 class="card-title">${item.name}</h5> <!-- Modify as per your object structure -->
-                          <p class="card-text">${item.image_link}</p> <!-- Modify as per your object structure -->
-                          <p class="card-text">${item.price}</p>
-                          <p class="card-text">${item.rating}</p>
-                          <p class="card-text">${item.product_link}</p>
-                          <!-- Add more properties from the object as needed -->
-                      </div>
-                  </div>
-              </div>
-          </div>`;
-      messagesList.appendChild(messageItem);
+    console.log(content);
+    // Create a single message item to contain the product cards
+    const messageItem = document.createElement('li');
+    messageItem.classList.add('message', messageType);
+    messageItem.innerHTML = `
+    <span class="material-symbols-outlined bot-icon">smart_toy</span>
+    <div class="message-text">
+      <div class="message-content">
+        <div class="row">`;
+
+      // Iterate through the top 3 products and create a card for each
+    content.slice(0, 3).forEach((item) => {
+      messageItem.innerHTML += `
+        <div class="col col-lg-4 col-md-6">
+          <div class="card">
+            <img src="${item.image_link}" class="card-img-top" alt="Product Image">
+            <div class="card-body">
+              <h5 class="card-title">${item.name}</h5>
+              <p class="card-text">Price: ${item.price}</p>
+              <p class="card-text">Rating: ${item.rating}</p>
+              <a href="${item.product_link}" class="btn btn-primary">Learn More</a>
+              <button id="buyNowButton" class="btn btn-success buy-now-button" data-product-name="${item.name}" data-product-link="${item.product_link}">Buy Now</button>
+            </div>
+          </div>
+        </div>`;
     });
+
+    // Close the row and message
+    messageItem.innerHTML += `
+        </div>
+      </div>
+    </div>`;
+
+    // Append the message item to the chat
+    messagesList.appendChild(messageItem);
   } else {
     // If content is not an array, create a single card
     const messageItem = document.createElement('li');
@@ -370,6 +438,8 @@
     messagesList.appendChild(messageItem);
   }
 }
+
+
 
 </script>
 
