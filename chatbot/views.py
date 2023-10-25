@@ -51,10 +51,9 @@ def registerPage(request):
 def chat(request):
     if request.method == 'POST':
         user_message = request.POST.get('user_message')
-        print("This is message" + user_message)
 
         if user_message:
-            recommended_products = recommend_products(user_message)
+            recommended_products = recommend_products(user_message, None, None)
         else:
             recommended_products = []
 
